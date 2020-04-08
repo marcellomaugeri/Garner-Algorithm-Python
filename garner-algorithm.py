@@ -16,25 +16,19 @@ def modInverse(a, n):
     return None
 
 def eqToString(eq):
-    if(eq[0]==1): 
-        return "x = "+str(eq[1])+" mod "+str(eq[2])
-    return str(eq[0])+"x = "+str(eq[1])+" mod "+str(eq[2])
+    return str("x = "+str(eq[0])+" mod "+str(eq[1]))
 
 def stringToEq(eq):
     eq=eq.split()
-    if(eq[0]=="x"):
-        a=int(1)
-    else:
-        a=int(eq[0].strip('x'))
     b=int(eq[2])
     c=int(eq[4])
-    eq=[a,b,c]
+    eq=[b,c]
     return eq
 
 def checkCoprime(system):
     for i in range(len(system)):
         for j in range(i+1, len(system)):
-            if math.gcd(system[i][2],system[j][2]) != 1:
+            if math.gcd(system[i][1],system[j][1]) != 1:
                 return False
     return True
 
@@ -42,32 +36,32 @@ def garner(system):
     if(checkCoprime(system)):
         N=1
         h=[0]*len(system)
-        for x,a,n in system:
+        for a,n in system:
             N=N*n
             
         for i in range(1, len(system)):
             h[i]=1
             for j in range(0, i-1):
-                t=modInverse(system[j][2], system[i][2]) 
-                h[i]=(t*h[i])%system[i][2]
+                t=modInverse(system[j][1], system[i][1]) 
+                h[i]=(t*h[i])%system[i][1]
 
-        t=system[0][1]
+        t=system[0][0]
         x=t
         for i in range(1, len(system)):
-            t=((system[i][1]-x)*h[i])%system[i][2]
+            t=((system[i][0]-x)*h[i])%system[i][1]
             mul=1
             for j in range(0, i):
-                mul=mul*system[j][2]
+                mul=mul*system[j][1]
             x=x+t*mul
         return [x,N]
     return None
 
-print("Enter '[a]x = [b] mod [n]' equations one at a time, when you're ready enter 'go' ")
+print("Enter 'x = [b] mod [n]' equations one at a time, when you're ready enter 'go' ")
 while True:
     ins=input()
     if ins == "stop" or ins == "Stop" or ins == "go":
         break
-    match = re.compile(r'\d{0,100}x = \d{1,100} mod \d{1,100}') 
+    match = re.compile(r'x = \d{1,100} mod \d{1,100}') 
     result = match.search(ins)
     if result is not None:
         system.append(stringToEq(result.group()))
