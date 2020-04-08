@@ -9,8 +9,8 @@ Python3 Garner's algorithm to solve diophantine equations system with coprime mo
   * Python 3 along with re and math
   
 ### How to use
-  * Run 'git clone https://github.com/Maray97/Garner-Algorithm-Python' or download the script.
-  * Run 'python garner-algorithm.py
+  * Run 'git clone https://github.com/Maray97/Garner-Algorithm-Python' on terminal or download the script
+  * Run 'python garner-algorithm.py'
   * Enter equations system as suggested
   * Enter 'go'
   * Enjoy the result
